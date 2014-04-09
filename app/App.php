@@ -5,7 +5,6 @@
  * This file contains the core app logic and is responsible for returning
  * a response to incoming GET requests
  */
-
 class App
 {
     protected $parser;

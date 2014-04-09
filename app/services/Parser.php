@@ -98,7 +98,7 @@ class Parser
     }
 
     /**
-     * Check how many types a token occurred
+     * Check how many times a token occurred
      *
      * @return int
      */
@@ -145,6 +145,7 @@ class Parser
         if ( $this->tokenDidOccur('T_DIGIT') )
             $this->parsed['params']['query']['max_price'] = $this->getMatchFromTokenType('T_DIGIT');
     }
+
     /**
      * Parse a location for the API request
      *

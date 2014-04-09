@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Initialise the app
+ */
 return new App(
         new Parser(),
         new SoapClient(
