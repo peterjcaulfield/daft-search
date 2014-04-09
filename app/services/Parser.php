@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * This class parses typed tokens in to formatted API request params
+ */
 class Parser
 {
     protected $typedTokens;
@@ -16,11 +18,21 @@ class Parser
         $this->parsed['params']['api_key'] = API_KEY;
     }
 
+    /**
+     * return the parsed params
+     *
+     * @return mixed
+     */
     public function getParsed()
     {
         return $this->parsed;
     }
 
+    /**
+     * Attempt to convert a raw location identifier to an API area location id
+     *
+     * @return mixed
+     */
     protected function getAreaIdFromRawLocation($rawLocation)
     {
         if ( !isset($this->locations['areas']) )
@@ -43,6 +55,11 @@ class Parser
         return $areaId;
     }
 
+    /**
+     * Attempt to convert a raw location identifier to an API county location id
+     *
+     * @return mixed
+     */
     protected function getCountyIdFromRawLocation($rawLocation)
     {
         if ( !isset($this->locations['counties']) )
@@ -67,6 +84,11 @@ class Parser
         return $areaId;
     }
 
+    /**
+     * Check if a specific token is present in the typed token array
+     *
+     * @return boolean
+     */
     protected function tokenDidOccur($token)
     {
         if ( $this->typedTokens['typedTokenMeta'][$token]['occurrences'] )
@@ -75,11 +97,21 @@ class Parser
             false;
     }
 
+    /**
+     * Check how many types a token occurred
+     *
+     * @return int
+     */
     protected function getTokenOccurrences($token)
     {
         return $this->typedTokens['typedTokenMeta'][$token]['occurrences'];
     }
 
+    /**
+     * Get the matched token based on the token type
+     *
+     * @return mixed
+     */
     protected function getMatchFromTokenType($token, $occurrence=0)
     {
         if ( isset($this->typedTokens['typedTokenMeta'][$token]['positions'][$occurrence]) )
@@ -88,6 +120,11 @@ class Parser
             return false;
     }
 
+    /**
+     * Parse the API request verb
+     *
+     * @return string
+     */
     protected function parseAdtype()
     {
         if ( $this->tokenDidOccur('T_RENT') )
@@ -98,12 +135,21 @@ class Parser
             $this->parsed['ad_type'] = 'search_rental';
     }
 
+    /**
+     * Parse a price for the API request
+     *
+     * @return void
+     */
     protected function parsePrice()
     {
         if ( $this->tokenDidOccur('T_DIGIT') )
             $this->parsed['params']['query']['max_price'] = $this->getMatchFromTokenType('T_DIGIT');
     }
-
+    /**
+     * Parse a location for the API request
+     *
+     * @return void
+     */
     protected function parseLocation()
     {
         if ( $this->tokenDidOccur('T_LOCATION') )
@@ -130,6 +176,11 @@ class Parser
         }
     }
 
+    /**
+     * Parse number of rooms for the API request
+     *
+     * @return void
+     */
     protected function parseNumRooms()
     {
         switch($numRooms =  $this->getTokenOccurrences('T_SINGLE_DIGIT') )
@@ -144,6 +195,11 @@ class Parser
         }
     }
 
+    /**
+     * Run the parser and return the parse result
+     *
+     * @return mixed
+     */
     public function run($typedTokens)
     {
         $this->typedTokens = $typedTokens;
@@ -158,6 +214,5 @@ class Parser
 
         return $this->parsed;
     }
-
 }
 

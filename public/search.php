@@ -1,10 +1,5 @@
 <?php
 
-
-ini_set('display_startup_errors',1);
-ini_set('display_errors',1);
-error_reporting(-1);
-
 /**
  * Load config
  */
@@ -27,7 +22,7 @@ $app = require_once __DIR__ .  '/../bootstrap/start.php';
 /**
  * Run the applciation
  *
- * this will return the response to the incoming request
+ * this will return a response to the incoming GET request
  */
 
 $app->run();

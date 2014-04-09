@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * This class converts raw GET query in to typed tokens that can later be parsed
+ * to formatted API request parameters
+ */
 class Lexer
 {
     protected static $tokenTypes = array(
@@ -14,12 +17,21 @@ class Lexer
             "/^(\w+)/" => "T_IDENTIFIER"
     );
 
-
+    /**
+     * Tokenise raw GET query based on delimiter
+     *
+     * @return array
+     */
     protected static function tokenizeUntyped($str)
     {
        return explode(' ', $str);
     }
 
+    /**
+     * Convert raw untyped tokens into typed tokens
+     *
+     * @return array
+     */
     public static function run($str)
     {
         $typedTokenMeta = array(
@@ -81,6 +93,11 @@ class Lexer
         return array('typedTokens' => $typedTokens, 'typedTokenMeta' => $typedTokenMeta);
     }
 
+    /**
+     * Attempt to match token to a type
+     *
+     * @return mixed
+     */
     protected static function tokenizeTyped($untypedToken)
     {
         foreach ( static::$tokenTypes as $pattern => $name )

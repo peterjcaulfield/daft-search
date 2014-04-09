@@ -1,3 +1,11 @@
+<?php
+/**
+ * Daft Search
+ *
+ * @author Peter Caulfield <peterjcaulfield@gmail.com>
+ */
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>

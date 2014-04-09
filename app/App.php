@@ -1,4 +1,10 @@
 <?php
+/**
+ * The application
+ *
+ * This file contains the core app logic and is responsible for returning
+ * a response to incoming GET requests
+ */
 
 class App
 {
@@ -12,6 +18,11 @@ class App
         $this->api = $api;
     }
 
+    /**
+     * Run the application and return a json response
+     *
+     * @return JSON
+     */
     public function run()
     {
         $rawSearch = $_GET['search'];
@@ -31,6 +42,11 @@ class App
             echo $this->jsonResponse(400);
     }
 
+    /**
+     * If we have a succesfully parsed request execute an API request
+     *
+     * @return mixed
+     */
     protected function getAds($rawQuery)
     {
         if ( $requestParams = $this->getRequestParams($rawQuery) )
@@ -39,6 +55,11 @@ class App
             return false;
     }
 
+    /**
+     * Attempt to parse the raw GET request
+     *
+     * @return mixed
+     */
     protected function getRequestParams($rawQuery)
     {
         $typedTokens = Lexer::run($rawQuery);
@@ -54,6 +75,11 @@ class App
         return false;
     }
 
+    /**
+     * execute an API request with the parsed params
+     *
+     * @return object
+     */
     protected function queryAPI($request)
     {
         $requestVerb = $request['ad_type'];
@@ -63,6 +89,11 @@ class App
         return  $this->api->$requestVerb($requestParams);
     }
 
+    /**
+     * Format a JSON response
+     *
+     * @return JSON
+     */
     protected function jsonResponse($code, $data=array())
     {
         return json_encode(array(
