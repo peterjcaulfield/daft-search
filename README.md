@@ -2,7 +2,7 @@
 
 Location parsing should be more rigorous. Firstly by using other types of typed tokens to parse location such as T_IDENTIFIER_SPECIFIER:
 
-    - check if T_LOGIC token is present ('in')
+    - check if T_IDENTIFIER_SPECIFIER token is present ('in')
     - check the T_IDENTIFIER token that follows it
     
 This is likely to be a location specifier. If neither a T_LOCATION (capitalized first letter) or a specifier token ('in') is found, then the 
