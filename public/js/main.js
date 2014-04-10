@@ -24,7 +24,13 @@ $(document).ready(function(){
                     var total = response.data.results.pagination.total_results;
                     var ads = response.data.results.ads;
 
-                    responseText.html(total + ' results for: ' + query.substr(0, query.length - 12));
+                    var resultText;
+                    if ( total > 1 )
+                        resultText = 'results';
+                    else
+                        resultText = 'result';
+
+                    responseText.html(total + ' ' + resultText + ' for: ' + query.substr(0, query.length - 12));
 
                     for( var i = 0; i < ads.length; i++ )
                     {
