@@ -7,10 +7,11 @@ $(document).ready(function(){
 
         e.preventDefault();
         var search = $('#search').val();
-        search = search.replace(/\W+/g, " ");
+        search = search.replace(/\W+/g, ' ');
+        search = search.replace(/\s{2,}/g, ' ');
 
-        if ( !search || search == " ")
-            search = "sale Dublin";
+        if ( !search || search == ' ')
+            search = "sale Dublin 3 bed";
 
         $.get('/search.php', {"search" : search})
             .done(function(response){
